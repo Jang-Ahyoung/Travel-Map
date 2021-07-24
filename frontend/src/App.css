@@ -1,0 +1,28 @@
+.card{
+    padding: 5px 10px;
+    width:250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+label{
+    width: max-content;
+    color:tomato;
+    font-size: 13px;
+    border-bottom: 1px solid tomato;
+    padding-bottom: 5px;
+    margin : 5px 0;
+}
+
+.desc,.username{
+    font-size: 14px;
+}
+
+.star{
+    color:gold;
+}
+.date{
+    font-size: 12px;
+}
