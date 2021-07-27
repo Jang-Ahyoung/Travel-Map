@@ -83,6 +83,35 @@ function App() {
             }
           </>
         ))}
+        {newPlace && (
+          <Popup
+            latitude={newPlace.lat}
+            longitude={newPlace.long}
+            closeButton={true}
+            closeOnClick={false}
+            onClose={() => setCurrentPlaceId(null)}
+            anchor="top"
+          >
+            <div className="card">
+              <form>
+                <label>Title</label>
+                <input placeholder="enter a title" />
+                <label>Review</label>
+                <textarea placeholder="Say us something about thie place." />
+                <label>Rating</label>
+                <select>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+                <button className="submitBtn" type="submit">Add pin</button>
+              </form>
+            </div>
+          </Popup>
+        )}
+
       </ReactMapGL>
     </div>
   );
