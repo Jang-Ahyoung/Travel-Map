@@ -1,28 +1,93 @@
-.card{
-    padding: 5px 10px;
-    width:250px;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+.card {
+  padding: 15px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
-label{
-    width: max-content;
-    color:tomato;
-    font-size: 13px;
-    border-bottom: 1px solid tomato;
-    padding-bottom: 5px;
-    margin : 5px 0;
+label {
+  width: max-content;
+  color: rgb(108, 205, 223);
+  font-size: 13px;
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgb(90, 168, 182);
+  padding-bottom: 5px;
+  margin: 5px 0;
 }
 
-.desc,.username{
-    font-size: 14px;
+.username,
+.date {
+  font-size: 12px;
 }
 
-.star{
-    color:gold;
+.desc {
+  color: rgb(100, 198, 237);
+  text-align: center;
+  width: 100%;
+  font-size: 15px;
 }
-.date{
-    font-size: 12px;
+
+.stars {
+  display: flex;
+  justify-content: center;
+}
+
+.star {
+  color: gold;
+}
+
+form {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+input,
+textarea,
+select {
+  outline: none;
+  color: black;
+  border: none;
+  border-bottom: 1px solid gray;
+  padding: 5px;
+}
+select {
+  margin-bottom: 5px;
+}
+.submitBtn {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  margin-top: 5px;
+  padding: 8px 5px;
+  border-radius: 5px;
+  background: rgb(108, 205, 223);
+  color: white;
+  letter-spacing: 1px;
+}
+
+.Marker:hover {
+  border-radius: 50%;
+  border: 3px solid rgb(0, 255, 255);
+}
+
+.author {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  letter-spacing: 1px;
+}
+
+.quote {
+  transform: rotate(180deg);
+}
+
+.quoteContainer {
+  display: flex;
+  justify-content: space-between;
+  color: rgb(6, 147, 202);
+  transform: translateY(5px);
 }
