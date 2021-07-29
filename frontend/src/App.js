@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
-import { Room, Star } from '@material-ui/icons';
+import { Room, Star, FormatQuote, Fastfood, ControlCamera } from '@material-ui/icons';
 import './App.css';
 import axios from 'axios';
 import { format } from 'timeago.js';
@@ -17,7 +17,10 @@ function App() {
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
-  const currentUsername = "ang"
+  const currentUsername = "june";
+  const [title, setTitle] = useState(null);
+  const [desc, setDesc] = useState(null);
+  const [star, setStar] = useState(0);
 
   useEffect(() => {
     const getPins = async () => {
@@ -42,6 +45,25 @@ function App() {
 
   }
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPin = {
+      username: currentUsername,
+      title,
+      desc,
+      rating: star,
+      lat: newPlace.lat,
+      long: newPlace.long
+    }
+    try {
+      const res = await axios.post("/pins", newPin);
+      setPins([...pins, res.data]);
+      setNewPlace(null);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div>
       <ReactMapGL
@@ -55,7 +77,8 @@ function App() {
         {pins.map(pin => (
           <>
             <Marker latitude={pin.lat} longitude={pin.long} offsetLeft={-20} offsetTop={-10}>
-              <Room style={{ fontSize: viewport.zoom * 5, color: currentUsername === pin.username ? "tomato" : "slateblue", cursor: "pointer" }} onClick={() => handerMarkerClick(pin._id, pin.lat, pin.long)} />
+              {/* <Fastfood style={{ fontSize: viewport.zoom * 5, color: "slateblue", cursor: "pointer" }} /> */}
+              <Room className="Marker" style={{ fontSize: viewport.zoom * 5, color: currentUsername === pin.username ? "tomato" : "slateblue", cursor: "pointer" }} onClick={() => handerMarkerClick(pin._id, pin.lat, pin.long)} />
             </Marker>
             {pin._id === currentPlaceId &&
               <Popup
@@ -67,17 +90,18 @@ function App() {
                 anchor="top"
               >
                 <div className="card">
-                  <label>Place</label>
-                  <h4 className="place">{pin.title}</h4>
-                  <label>Rating</label>
+                  <h3 className="place">{pin.title}</h3>
+                  <div className="author">
+                    <span className="username">Created by <b>{pin.username}</b></span>
+                    <span className="date">{format(pin.createdAt)}</span>
+                  </div>
                   <div className="stars">
                     <Star className="star" /><Star className="star" /><Star className="star" /><Star className="star" /><Star className="star" />
                   </div>
-                  <label>Review</label>
-                  <p className="desc">{pin.desc}</p>
-                  <label>Information</label>
-                  <span className="username">Created by <b>{pin.username}</b></span>
-                  <span className="date">{format(pin.createdAt)}</span>
+                  <div>
+                    <div className="quoteContainer" ><FormatQuote className="quote" /><FormatQuote /></div>
+                    <p className="desc">{pin.desc}</p>
+                  </div>
                 </div>
               </Popup>
             }
@@ -93,13 +117,13 @@ function App() {
             anchor="top"
           >
             <div className="card">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <label>Title</label>
-                <input placeholder="enter a title" />
+                <input placeholder="enter a title" onChange={(e) => setTitle(e.target.vaule)} />
                 <label>Review</label>
-                <textarea placeholder="Say us something about thie place." />
+                <textarea placeholder="Say us something about thie place." onChange={(e) => setDesc(e.target.vaule)} />
                 <label>Rating</label>
-                <select>
+                <select onChange={(e) => setStar(e.target.vaule)}>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
